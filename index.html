@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Ops Monitor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">TECHNOLOGY OPERATIONS</p>
+      <h1>AI Ops Monitor</h1>
+      <p class="subtitle">System health, alert detection, and incident triage</p>
+    </div>
+    <div class="status"><span class="pulse"></span> Live local monitoring</div>
+  </header>
+
+  <main>
+    <section class="metrics-grid" aria-label="System metrics">
+      <article class="metric-card">
+        <div class="metric-label">CPU usage</div><div class="metric-value" id="cpu">--%</div>
+        <div class="track"><div id="cpu-bar" class="bar"></div></div><p class="hint">Alert threshold: 80%</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">Memory usage</div><div class="metric-value" id="memory">--%</div>
+        <div class="track"><div id="memory-bar" class="bar"></div></div><p class="hint">Alert threshold: 85%</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">Disk usage</div><div class="metric-value" id="disk">--%</div>
+        <div class="track"><div id="disk-bar" class="bar"></div></div><p class="hint">Alert threshold: 90%</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">Open incidents</div><div class="metric-value" id="open-count">0</div>
+        <p class="hint" id="updated">Waiting for first sample…</p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><h2>Current alerts</h2><p>Threshold-based detection with suggested first-response actions</p></div>
+        <span class="tag" id="alert-state">Checking</span>
+      </div>
+      <div id="alerts" class="alerts"><p class="empty">Collecting system metrics…</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><h2>Incident history</h2><p>Open alerts are recorded in a local SQLite database</p></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Time</th><th>Severity</th><th>Metric</th><th>Value</th><th>Recommended action</th><th>Status</th></tr></thead>
+          <tbody id="incidents"><tr><td colspan="7" class="empty">No incidents recorded yet.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <p class="footer" id="timestamp">Metrics refresh every 5 seconds · Demo project</p>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
